@@ -3,8 +3,8 @@
  * @module index
  */
 
-export * from './types'
-export * from './utils'
+export * from '@/types/index'
+export * from '@/utils/index'
 
 /**
  * Example function demonstrating strict rules
