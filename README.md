@@ -4,11 +4,7 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9+-blue.svg)](https://www.typescriptlang.org/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
-> **Strict TypeScript Coding Rules Enforced** - A starter template that enforces strict TypeScript coding standards, ensuring consistent, maintainable, and production-ready code.
-
-## 📋 Overview
-
-This starter enforces **strict coding rules** while developing with TypeScript. No more debates about formatting, no more inconsistent code - just clean, strict, and professional TypeScript development.
+> **Strict TypeScript Development Starter** - A comprehensive starter template with strict TypeScript rules, modern tooling, and production-ready configuration for Node.js projects.
 
 ---
 
@@ -16,21 +12,23 @@ This starter enforces **strict coding rules** while developing with TypeScript. 
 
 ### **TypeScript Rules**
 ```typescript
-// ✅ ENFORCED: Strict mode always enabled
+// ✅ ENFORCED: Strict mode with comprehensive type checking
 // ✅ ENFORCED: No implicit any types
-// ✅ ENFORCED: No unused variables
+// ✅ ENFORCED: No unused variables or parameters
 // ✅ ENFORCED: All code paths must return
-// ✅ ENFORCED: Explicit return types (warn)
-// ✅ ENFORCED: No explicit any types (warn)
+// ✅ ENFORCED: Explicit type annotations required
+// ✅ ENFORCED: No unreachable code
+// ✅ ENFORCED: Exact optional property types
+// ✅ ENFORCED: No unchecked indexed access
 
 // ❌ This will fail:
 function badFunction(input) {  // implicit any
   if (condition) return value  // not all paths return
-  // unused variable warning
+  const unused = "never used"  // unused variable
 }
 
 // ✅ This passes:
-function goodFunction(input: string): string {
+function goodFunction: (input: string) => string = (input: string): string => {
   if (condition) {
     return value
   }
@@ -46,10 +44,11 @@ function goodFunction(input: string): string {
 // ✅ ENFORCED: Required curly braces
 // ✅ ENFORCED: Spaces inside object braces
 // ✅ ENFORCED: No spaces inside array brackets
+// ✅ ENFORCED: Consistent naming conventions
 
 // ❌ This will fail:
-const obj = {a: 1, b: 2,};  // trailing comma
-const arr = [ 1, 2, 3 ];    // spaces in array
+const obj = {a: 1, b: 2,};   // trailing comma
+const arr = [ 1, 2, 3 ];     // spaces in array
 if(condition) return value;  // no curly braces, semicolon
 
 // ✅ This passes:
@@ -68,6 +67,8 @@ if (condition) {
 // ✅ ENFORCED: Object destructuring where applicable
 // ✅ ENFORCED: No inline comments
 // ✅ ENFORCED: Cognitive complexity ≤ 15
+// ✅ ENFORCED: No duplicate code
+// ✅ ENFORCED: Prefer immediate returns
 
 // ❌ This will fail:
 var oldWay = "string" + variable;  // var, concatenation
@@ -87,10 +88,12 @@ const callback = () => value
 // ✅ ENFORCED: No redundant boolean expressions
 // ✅ ENFORCED: Prefer immediate returns
 // ✅ ENFORCED: No one-iteration loops
+// ✅ ENFORCED: No unused variables
+// ✅ ENFORCED: No unreachable code
 
 // ❌ This will fail:
 const message = "Hello"
-const greeting = "Hello"  // duplicate string
+const greeting = "Hello"   // duplicate string
 
 if (condition === true) {  // redundant boolean
   return value
@@ -121,20 +124,26 @@ npm run dev
 
 ### Development Commands
 ```bash
-# Write code (rules enforced automatically)
-npm run dev              # Watch mode with strict checking
+# Development
+npm run dev              # TypeScript watch mode
+npm run build            # Build for production
+npm run clean            # Clean build directory
 
-# Quality checks (strict rules)
+# Code Quality
 npm run lint             # ESLint with strict rules
-npm run lint:fix         # Auto-fix rule violations
-npm run format           # Prettier with strict formatting
-npm run type-check       # TypeScript strict checking
+npm run lint:fix         # Auto-fix ESLint violations
+npm run format           # Prettier formatting
+npm run type-check       # TypeScript type checking
 
-# Testing (required for quality)
-npm run test             # Jest with coverage
+# Testing
+npm run test             # Run tests with Jest
 npm run test:watch       # Watch mode for TDD
+npm run test:coverage    # Run tests with coverage
 
-# Quality assurance (all checks)
+# Documentation
+npm run docs             # Generate TypeDoc documentation
+
+# Quality Assurance
 npm run check-all        # Lint + Type-check + Test
 ```
 
@@ -146,15 +155,19 @@ TypeScript-Starter/
 │   ├── types/              # Type definitions
 │   ├── utils/              # Utility functions
 │   └── index.ts            # Main entry point
-├── tests/                  # Tests (required)
+├── tests/                  # Test files
+│   ├── setup.ts            # Test setup
+│   └── example.test.ts     # Example tests
 ├── examples/               # Example usage
+│   └── basic-usage.ts      # Basic usage example
 ├── dist/                   # Build output
-├── docs/                   # Auto-generated docs
+├── docs/                   # Auto-generated documentation
+├── coverage/               # Test coverage reports
 └── Configuration Files     # Strict rules enforced
-    ├── tsconfig.json       # Strict TypeScript
-    ├── eslint.config.js    # Strict linting rules
-    ├── .prettierrc         # Strict formatting rules
-    └── jest.config.js      # Testing setup
+    ├── tsconfig.json       # TypeScript configuration
+    ├── eslint.config.js    # ESLint configuration
+    ├── jest.config.js      # Jest testing configuration
+    └── package.json        # Dependencies and scripts
 ```
 
 ## 🔧 Strict Rules in Action
@@ -162,12 +175,18 @@ TypeScript-Starter/
 ### **TypeScript Configuration**
 ```json
 {
-  "strict": true,                     // All strict checks
-  "noImplicitAny": true,              // No implicit any
-  "noImplicitReturns": true,          // All paths return
-  "noUnusedLocals": true,             // No unused variables
-  "noUnusedParameters": true,         // No unused parameters
-  "exactOptionalPropertyTypes": true  // Exact optional types
+  "strict": true,                      // All strict checks enabled
+  "noImplicitAny": true,               // No implicit any types
+  "noImplicitReturns": true,           // All code paths must return
+  "noUnusedLocals": true,              // No unused local variables
+  "noUnusedParameters": true,          // No unused parameters
+  "exactOptionalPropertyTypes": true,  // Exact optional property types
+  "noUncheckedIndexedAccess": true,    // No unchecked indexed access
+  "noImplicitOverride": true,          // No implicit override
+  "noImplicitThis": true,              // No implicit this
+  "noFallthroughCasesInSwitch": true,  // No fallthrough cases in switch
+  "allowUnreachableCode": false,       // No unreachable code
+  "allowUnusedLabels": false           // No unused labels
 }
 ```
 
@@ -178,25 +197,31 @@ TypeScript-Starter/
 'quotes': ['error', 'single'],        // Single quotes
 'comma-dangle': ['error', 'never'],   // No trailing commas
 'curly': ['error', 'all'],            // Required curly braces
+'object-curly-spacing': ['error', 'always'], // Spaces in objects
+'array-bracket-spacing': ['error', 'never'], // No spaces in arrays
 
 // Best Practices
 'prefer-const': 'error',              // Prefer const
 'no-var': 'error',                    // No var
 'prefer-template': 'error',           // Template literals
 'prefer-arrow-callback': 'error',     // Arrow functions
+'no-duplicate-imports': 'error',      // No duplicate imports
 
 // TypeScript Specific
 '@typescript-eslint/no-unused-vars': 'error',
-'@typescript-eslint/explicit-function-return-type': 'warn',
-'@typescript-eslint/no-explicit-any': 'warn'
+'@typescript-eslint/typedef': 'error',               // Explicit type annotations
+'@typescript-eslint/no-explicit-any': 'warn',
+'@typescript-eslint/no-non-null-assertion': 'error'
 ```
 
 ### **SonarJS Quality Rules**
 ```javascript
 'sonarjs/cognitive-complexity': ['error', 15],  // Max complexity
-'sonarjs/no-duplicate-string': 'error',         // No duplicates
+'sonarjs/no-duplicate-string': 'error',         // No duplicate strings
 'sonarjs/no-identical-functions': 'error',      // No identical functions
-'sonarjs/prefer-immediate-return': 'error'      // Immediate returns
+'sonarjs/prefer-immediate-return': 'error',     // Immediate returns
+'sonarjs/no-one-iteration-loop': 'error',       // No one-iteration loops
+'sonarjs/no-redundant-boolean': 'error'         // No redundant booleans
 ```
 ---
 
@@ -253,12 +278,25 @@ function goodFunction(input: string): string {
 ### **Test Structure**
 ```typescript
 // tests/example.test.ts
-import { exampleFunction } from '@/index'
+import { exampleFunction, ExampleClass } from '@/index'
 
 describe('exampleFunction', () => {
-  it('should follow strict rules', () => {
+  it('should convert string to uppercase', () => {
     const result = exampleFunction('test')
     expect(result).toBe('TEST')
+  })
+})
+
+describe('ExampleClass', () => {
+  let instance: ExampleClass
+
+  beforeEach(() => {
+    instance = new ExampleClass('initial')
+  })
+
+  it('should set and get values correctly', () => {
+    instance.setValue('new value')
+    expect(instance.getValue()).toBe('NEW VALUE')
   })
 })
 ```
@@ -269,6 +307,18 @@ describe('exampleFunction', () => {
 - **Branches**: 80% minimum
 - **Statements**: 80% minimum
 
+### **Running Tests**
+```bash
+# Run all tests
+npm test
+
+# Run tests in watch mode
+npm run test:watch
+
+# Run tests with coverage
+npm run test:coverage
+```
+
 ## 📚 Documentation (Enforced)
 
 ### **JSDoc Required for Public APIs**
@@ -278,8 +328,35 @@ describe('exampleFunction', () => {
  * @param input - Input string to process
  * @returns Processed string in uppercase
  */
-export const exampleFunction = (input: string): string => {
+export const exampleFunction: (input: string) => string = (input: string): string => {
   return input.toUpperCase()
+}
+
+/**
+ * Example class with strict typing
+ */
+export class ExampleClass {
+  private value: string
+
+  constructor(initialValue: string) {
+    this.value = initialValue.toUpperCase()
+  }
+
+  /**
+   * Get the current value
+   * @returns The current value in uppercase
+   */
+  public getValue(): string {
+    return this.value
+  }
+
+  /**
+   * Set a new value
+   * @param newValue - The new value to set
+   */
+  public setValue(newValue: string): void {
+    this.value = newValue.toUpperCase()
+  }
 }
 ```
 
@@ -296,6 +373,11 @@ import { utils } from '@/utils/helper'
 import { types } from '@types/common'
 import { helpers } from '@utils/helpers'
 ```
+
+### **Available Path Aliases**
+- `@/*` → `src/*` (main source directory)
+- `@types/*` → `src/types/*` (type definitions)
+- `@utils/*` → `src/utils/*` (utility functions)
 
 ## 🛠️ Development Workflow
 
@@ -316,8 +398,9 @@ npm run check-all  # All strict rules checked
 
 ### **4. Build & Deploy**
 ```bash
-npm run build  # Production build
-npm run docs   # Generate documentation
+npm run build  # Production build with minification
+npm run docs   # Generate TypeDoc documentation
+npm run clean  # Clean build directory
 ```
 
 ---
@@ -327,11 +410,14 @@ npm run docs   # Generate documentation
 ### **✅ Enforced Rules**
 
 **TypeScript:**
-- Strict mode always enabled
+- Strict mode with comprehensive type checking
 - No implicit any types
 - No unused variables or parameters
 - All code paths must return
-- Explicit return types (warn)
+- Explicit type annotations required
+- No unreachable code
+- Exact optional property types
+- No unchecked indexed access
 
 **Code Style:**
 - Single quotes, no semicolons
@@ -339,6 +425,7 @@ npm run docs   # Generate documentation
 - No trailing commas
 - Required curly braces
 - Spaces in objects, no spaces in arrays
+- Consistent naming conventions
 
 **Best Practices:**
 - Prefer const over let/var
@@ -346,12 +433,17 @@ npm run docs   # Generate documentation
 - Template literals over concatenation
 - Object destructuring where applicable
 - No inline comments
+- No duplicate code
+- Prefer immediate returns
 
 **Quality:**
 - Cognitive complexity ≤ 15
-- No duplicate code
-- No redundant logic
-- Prefer immediate returns
+- No duplicate strings
+- No identical functions
+- No redundant boolean expressions
+- No one-iteration loops
+- No unused variables
+- No unreachable code
 
 ### **🎯 Why These Strict Rules?**
 

@@ -37,7 +37,6 @@ const demonstrateBasicUsage = (): void => {
  */
 const demonstrateAsyncUsage = async (): Promise<void> => {
   console.log('\n=== Async Usage Example ===')
-
   console.log('Starting delay...')
   await delay(1000)
   console.log('Delay completed!')

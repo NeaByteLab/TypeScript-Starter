@@ -11,7 +11,7 @@ export * from '@/utils/index'
  * @param input - Input string to process
  * @returns Processed string
  */
-export const exampleFunction = (input: string): string => {
+export const exampleFunction: (input: string) => string = (input: string): string => {
   return input.toUpperCase()
 }
 
@@ -19,7 +19,7 @@ export const exampleFunction = (input: string): string => {
  * Example class demonstrating strict TypeScript rules
  */
 export class ExampleClass {
-  private readonly value: string
+  private value: string
 
   constructor(value: string) {
     this.value = value
@@ -38,7 +38,6 @@ export class ExampleClass {
    * @param newValue - New value to set
    */
   public setValue(newValue: string): void {
-    // This would be a setter in a real implementation
-    console.log(`Setting value to: ${newValue}`)
+    this.value = newValue
   }
 } 

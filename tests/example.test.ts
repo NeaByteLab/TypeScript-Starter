@@ -38,13 +38,10 @@ describe('ExampleClass', () => {
   })
 
   describe('setValue', () => {
-    it('should log the new value', () => {
-      const consoleSpy = jest.spyOn(console, 'log').mockImplementation()
-      
-      instance.setValue('new value')
-      
-      expect(consoleSpy).toHaveBeenCalledWith('Setting value to: new value')
-      consoleSpy.mockRestore()
+    it('should set the new value', () => {
+      const newValue = 'new value'
+      instance.setValue(newValue)
+      expect(instance.getValue()).toBe('NEW VALUE')
     })
   })
 })
@@ -68,7 +65,6 @@ describe('Utility Functions', () => {
     it('should create success result with data', () => {
       const data = { message: 'success' }
       const result = createSuccessResult(data)
-      
       expect(result.success).toBe(true)
       expect(result.data).toBe(data)
       expect(result.error).toBeUndefined()
@@ -79,7 +75,6 @@ describe('Utility Functions', () => {
     it('should create error result with message', () => {
       const errorMessage = 'Something went wrong'
       const result = createErrorResult<string>(errorMessage)
-      
       expect(result.success).toBe(false)
       expect(result.error).toBe(errorMessage)
       expect(result.data).toBeUndefined()
