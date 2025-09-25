@@ -4,7 +4,7 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9+-blue.svg)](https://www.typescriptlang.org/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
-> **Strict TypeScript Development Starter** - A comprehensive starter template with strict TypeScript rules, modern tooling, and production-ready configuration for Node.js projects.
+> **TypeScript Starter** - A starter template with TypeScript rules, tooling, and configuration for Node.js projects.
 
 ---
 
@@ -115,7 +115,7 @@ if (condition) {
 
 ### Installation
 ```bash
-# Clone and start coding with rules enforced
+# Clone and start coding
 git clone https://github.com/NeaByteLab/TypeScript-Starter.git my-project
 cd my-project
 npm install
@@ -125,105 +125,139 @@ npm run dev
 ### Development Commands
 ```bash
 # Development
-npm run dev              # TypeScript watch mode
-npm run build            # Build for production
-npm run clean            # Clean build directory
+npm run dev                # TypeScript watch mode
+npm run build              # Build for production
+npm run clean              # Clean build directory
 
 # Code Quality
-npm run lint             # ESLint with strict rules
-npm run lint:fix         # Auto-fix ESLint violations
-npm run format           # Prettier formatting
-npm run type-check       # TypeScript type checking
+npm run lint               # ESLint with strict rules
+npm run lint:fix           # Auto-fix ESLint violations
+npm run format             # Prettier formatting
+npm run type-check         # TypeScript type checking
 
 # Testing
-npm run test             # Run tests with Jest
-npm run test:watch       # Watch mode for TDD
-npm run test:coverage    # Run tests with coverage
+npm run test               # Run tests with Jest
+npm run test:watch         # Watch mode for TDD
+npm run test:coverage      # Run tests with coverage
 
 # Documentation
-npm run docs             # Generate TypeDoc documentation
+npm run docs               # Generate TypeDoc documentation
 
 # Quality Assurance
-npm run check-all        # Lint + Type-check + Test
+npm run check-all          # Run all checks
 ```
 
 ## 📁 Project Structure
 
 ```
 TypeScript-Starter/
-├── src/                    # Source code
-│   ├── types/              # Type definitions
-│   ├── utils/              # Utility functions
-│   └── index.ts            # Main entry point
-├── tests/                  # Test files
-│   ├── setup.ts            # Test setup
-│   └── example.test.ts     # Example tests
-├── examples/               # Example usage
-│   └── basic-usage.ts      # Basic usage example
-├── dist/                   # Build output
-├── docs/                   # Auto-generated documentation
-├── coverage/               # Test coverage reports
-└── Configuration Files     # Strict rules enforced
-    ├── tsconfig.json       # TypeScript configuration
-    ├── eslint.config.js    # ESLint configuration
-    ├── jest.config.js      # Jest testing configuration
-    └── package.json        # Dependencies and scripts
+├── src/                      # Source code
+│   ├── types/                # Type definitions
+│   │   └── index.ts          # Common types: ConfigOptions, Result<T>, EventHandler, etc.
+│   ├── utils/                # Utility functions
+│   │   └── index.ts          # Helper functions: isNotEmpty, createSuccessResult, etc.
+│   └── index.ts              # Main entry point - exports all public APIs
+├── tests/                    # Test files
+│   ├── setup.ts              # Jest test setup and global configurations
+│   └── example.test.ts       # Test suite for all functions
+├── examples/                 # Example usage
+│   └── basic-usage.ts        # Usage examples with async support
+├── dist/                     # Build output (ESM + type definitions)
+├── docs/                     # Auto-generated TypeDoc documentation
+├── coverage/                 # Test coverage reports (HTML + LCOV)
+└── Configuration Files       # Strict rules enforced
+    ├── tsconfig.json         # TypeScript configuration (all strict options enabled)
+    ├── eslint.config.js      # ESLint configuration (200+ rules)
+    ├── jest.config.js        # Jest testing configuration with TypeScript
+    └── package.json          # Dependencies and scripts
 ```
 
-## 🔧 Strict Rules in Action
+## 📦 Core API Reference
 
-### **TypeScript Configuration**
-```json
-{
-  "strict": true,                      // All strict checks enabled
-  "noImplicitAny": true,               // No implicit any types
-  "noImplicitReturns": true,           // All code paths must return
-  "noUnusedLocals": true,              // No unused local variables
-  "noUnusedParameters": true,          // No unused parameters
-  "exactOptionalPropertyTypes": true,  // Exact optional property types
-  "noUncheckedIndexedAccess": true,    // No unchecked indexed access
-  "noImplicitOverride": true,          // No implicit override
-  "noImplicitThis": true,              // No implicit this
-  "noFallthroughCasesInSwitch": true,  // No fallthrough cases in switch
-  "allowUnreachableCode": false,       // No unreachable code
-  "allowUnusedLabels": false           // No unused labels
+### **Type Definitions**
+```typescript
+// Configuration options interface
+export interface ConfigOptions {
+  readonly debug: boolean
+  readonly timeout: number
+  readonly retries: number
+}
+
+// Result type for operations (success/error handling)
+export type Result<T> = {
+  readonly success: boolean
+  readonly data?: T
+  readonly error?: string
+}
+
+// Event handler type
+export type EventHandler<T = unknown> = (event: T) => void
+
+// Async operation type
+export type AsyncOperation<T> = () => Promise<T>
+
+// Validation function type
+export type Validator<T> = (value: T) => boolean
+```
+
+### **Utility Functions**
+```typescript
+// String validation
+export const isNotEmpty: (value: string) => boolean
+
+// Result constructors
+export const createSuccessResult: <T>(data: T) => Result<T>
+export const createErrorResult: <T>(error: string) => Result<T>
+
+// Async utilities
+export const delay: (ms: number) => Promise<void>
+```
+
+### **Main Exports**
+```typescript
+// Example function (demonstrates strict typing)
+export const exampleFunction: (input: string) => string
+
+// Example class (demonstrates OOP with strict rules)
+export class ExampleClass {
+  constructor(value: string)
+  public getValue(): string
+  public setValue(newValue: string): void
 }
 ```
 
-### **ESLint Rules (Strict Style)**
-```javascript
-// Code Style
-'semi': ['error', 'never'],           // No semicolons
-'quotes': ['error', 'single'],        // Single quotes
-'comma-dangle': ['error', 'never'],   // No trailing commas
-'curly': ['error', 'all'],            // Required curly braces
-'object-curly-spacing': ['error', 'always'], // Spaces in objects
-'array-bracket-spacing': ['error', 'never'], // No spaces in arrays
+### **Usage Examples**
+```typescript
+import {
+  exampleFunction,
+  ExampleClass,
+  isNotEmpty,
+  createSuccessResult,
+  createErrorResult,
+  delay,
+  type ConfigOptions,
+  type Result
+} from 'typescript-starter'
 
-// Best Practices
-'prefer-const': 'error',              // Prefer const
-'no-var': 'error',                    // No var
-'prefer-template': 'error',           // Template literals
-'prefer-arrow-callback': 'error',     // Arrow functions
-'no-duplicate-imports': 'error',      // No duplicate imports
+// Function usage
+const result = exampleFunction('hello world')
+console.log(result) // "HELLO WORLD"
 
-// TypeScript Specific
-'@typescript-eslint/no-unused-vars': 'error',
-'@typescript-eslint/typedef': 'error',               // Explicit type annotations
-'@typescript-eslint/no-explicit-any': 'warn',
-'@typescript-eslint/no-non-null-assertion': 'error'
+// Class usage
+const instance = new ExampleClass('test value')
+console.log(instance.getValue()) // "TEST VALUE"
+
+// Utility usage
+console.log(isNotEmpty('valid')) // true
+console.log(isNotEmpty('')) // false
+
+const success = createSuccessResult({ message: 'OK' })
+const error = createErrorResult<string>('Failed')
+
+// Async usage
+await delay(1000)
+console.log('Delayed execution')
 ```
-
-### **SonarJS Quality Rules**
-```javascript
-'sonarjs/cognitive-complexity': ['error', 15],  // Max complexity
-'sonarjs/no-duplicate-string': 'error',         // No duplicate strings
-'sonarjs/no-identical-functions': 'error',      // No identical functions
-'sonarjs/prefer-immediate-return': 'error',     // Immediate returns
-'sonarjs/no-one-iteration-loop': 'error',       // No one-iteration loops
-'sonarjs/no-redundant-boolean': 'error'         // No redundant booleans
-```
----
 
 ## 📊 Code Quality Metrics
 
@@ -254,7 +288,7 @@ function simpleFunction(input: string): string {
 }
 ```
 
-### **Type Safety Guaranteed**
+### **Type Safety**
 ```typescript
 // ❌ These will fail compilation
 function badFunction(input) {           // implicit any
@@ -383,7 +417,7 @@ import { helpers } from '@utils/helpers'
 
 ### **1. Start Coding**
 ```bash
-npm run dev  # Rules enforced automatically
+npm run dev         # Rules are checked
 ```
 
 ### **2. Write Tests**
@@ -393,66 +427,15 @@ npm run test:watch  # TDD approach
 
 ### **3. Quality Check**
 ```bash
-npm run check-all  # All strict rules checked
+npm run check-all  # All rules checked
 ```
 
 ### **4. Build & Deploy**
 ```bash
-npm run build  # Production build with minification
-npm run docs   # Generate TypeDoc documentation
-npm run clean  # Clean build directory
+npm run build      # Production build with minification
+npm run docs       # Generate TypeDoc documentation
+npm run clean      # Clean build directory
 ```
-
----
-
-## 📋 Strict Rules Summary
-
-### **✅ Enforced Rules**
-
-**TypeScript:**
-- Strict mode with comprehensive type checking
-- No implicit any types
-- No unused variables or parameters
-- All code paths must return
-- Explicit type annotations required
-- No unreachable code
-- Exact optional property types
-- No unchecked indexed access
-
-**Code Style:**
-- Single quotes, no semicolons
-- 2-space indentation
-- No trailing commas
-- Required curly braces
-- Spaces in objects, no spaces in arrays
-- Consistent naming conventions
-
-**Best Practices:**
-- Prefer const over let/var
-- Arrow functions for callbacks
-- Template literals over concatenation
-- Object destructuring where applicable
-- No inline comments
-- No duplicate code
-- Prefer immediate returns
-
-**Quality:**
-- Cognitive complexity ≤ 15
-- No duplicate strings
-- No identical functions
-- No redundant boolean expressions
-- No one-iteration loops
-- No unused variables
-- No unreachable code
-
-### **🎯 Why These Strict Rules?**
-
-1. **Consistency** - Same style across all files
-2. **Readability** - Clean, predictable code
-3. **Maintainability** - Easy to understand and modify
-4. **Quality** - Prevents common mistakes
-5. **Performance** - Optimized for modern JavaScript
-6. **Team Collaboration** - No style debates
 
 ---
 

@@ -38,6 +38,11 @@ export const createErrorResult: <T>(error: string) => Result<T> = <T>(error: str
   }
 }
 
+/**
+ * Delay execution for specified milliseconds
+ * @param ms - Milliseconds to delay
+ * @returns Promise that resolves after the delay
+ */
 export const delay: (ms: number) => Promise<void> = (ms: number): Promise<void> => {
   return new Promise((resolve: () => void) => {
     setTimeout(resolve, ms)
