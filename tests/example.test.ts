@@ -3,8 +3,8 @@
  * @module tests/example
  */
 
-import { exampleFunction, ExampleClass } from '@/index'
-import { isNotEmpty, createSuccessResult, createErrorResult } from '@/utils'
+import { exampleFunction, ExampleClass } from '@root/index'
+import { isNotEmpty, createSuccessResult, createErrorResult } from '@root/utils/index'
 
 describe('exampleFunction', () => {
   it('should convert string to uppercase', () => {
@@ -80,4 +80,4 @@ describe('Utility Functions', () => {
       expect(result.data).toBeUndefined()
     })
   })
-}) 
+})

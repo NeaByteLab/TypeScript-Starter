@@ -1,13 +1,9 @@
-/**
- * Main entry point for the TypeScript Strict Starter
- * @module index
- */
-
-export * from '@/types/index'
-export * from '@/utils/index'
+export * from '@root/types/index'
+export * from '@root/utils/index'
 
 /**
- * Example function demonstrating strict rules
+ * Example function demonstrating strict rules.
+ * @description Converts input string to uppercase.
  * @param input - Input string to process
  * @returns Processed string
  */
@@ -16,7 +12,8 @@ export const exampleFunction: (input: string) => string = (input: string): strin
 }
 
 /**
- * Example class demonstrating strict TypeScript rules
+ * Example class demonstrating strict TypeScript rules.
+ * @description Provides value management with strict typing.
  */
 export class ExampleClass {
   private value: string
@@ -26,7 +23,8 @@ export class ExampleClass {
   }
 
   /**
-   * Get the processed value
+   * Get the processed value.
+   * @description Returns the stored value converted to uppercase.
    * @returns Processed string value
    */
   public getValue(): string {
@@ -34,10 +32,11 @@ export class ExampleClass {
   }
 
   /**
-   * Set a new value
+   * Set a new value.
+   * @description Updates the internal value with the provided string.
    * @param newValue - New value to set
    */
   public setValue(newValue: string): void {
     this.value = newValue
   }
-} 
+}

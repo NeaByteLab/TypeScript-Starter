@@ -8,7 +8,7 @@
     "rootDir": "src",
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"],
+      "@root/*": ["src/*"],
       "@types/*": ["src/types/*"],
       "@utils/*": ["src/utils/*"]
     },
@@ -44,5 +44,5 @@
     "verbatimModuleSyntax": true
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist", "tests", "src/scripts"]
+  "exclude": ["node_modules", "dist"]
 }
