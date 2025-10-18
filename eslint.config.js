@@ -192,21 +192,9 @@ export default [
           format: ['PascalCase']
         },
         {
-          selector: 'method',
-          format: ['camelCase']
-        },
-        {
           selector: 'parameter',
           format: ['camelCase'],
           leadingUnderscore: 'allow'
-        },
-        {
-          selector: 'property',
-          format: ['camelCase'],
-          filter: {
-            regex: '^\\.',
-            match: false
-          }
         },
         {
           selector: 'typeAlias',
